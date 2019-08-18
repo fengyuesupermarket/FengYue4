@@ -1,4 +1,6 @@
 package cn.fengyue.supermarket.service.impl;
 
-public class ItemsServiceImpl {
+import cn.fengyue.supermarket.service.ItemsService;
+
+public class ItemsServiceImpl implements ItemsService {
 }

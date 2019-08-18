@@ -1,5 +1,7 @@
 package cn.fengyue.supermarket.po;
 
+import java.util.Date;
+
 public class Items {
     private Integer id;
 
@@ -12,6 +14,8 @@ public class Items {
     private Double bid;
 
     private Double price;
+
+    private Date date;
 
     public Integer getId() {
         return id;
@@ -59,5 +63,13 @@ public class Items {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

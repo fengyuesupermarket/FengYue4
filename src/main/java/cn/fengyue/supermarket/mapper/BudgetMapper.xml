@@ -3,7 +3,7 @@
 <mapper namespace="cn.fengyue.supermarket.mapper.BudgetMapper">
   <resultMap id="BaseResultMap" type="cn.fengyue.supermarket.po.Budget">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="date" jdbcType="DATE" property="date" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
     <result column="income_or_expenditure" jdbcType="VARCHAR" property="incomeOrExpenditure" />
     <result column="amount" jdbcType="DOUBLE" property="amount" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
@@ -105,7 +105,7 @@
     insert into Budget (id, date, income_or_expenditure, 
       amount, quantity, items_id, 
       remarks)
-    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=DATE}, #{incomeOrExpenditure,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, #{incomeOrExpenditure,jdbcType=VARCHAR}, 
       #{amount,jdbcType=DOUBLE}, #{quantity,jdbcType=INTEGER}, #{itemsId,jdbcType=INTEGER}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
@@ -139,7 +139,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="date != null">
-        #{date,jdbcType=DATE},
+        #{date,jdbcType=TIMESTAMP},
       </if>
       <if test="incomeOrExpenditure != null">
         #{incomeOrExpenditure,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.date != null">
-        date = #{record.date,jdbcType=DATE},
+        date = #{record.date,jdbcType=TIMESTAMP},
       </if>
       <if test="record.incomeOrExpenditure != null">
         income_or_expenditure = #{record.incomeOrExpenditure,jdbcType=VARCHAR},
@@ -196,7 +196,7 @@
   <update id="updateByExample" parameterType="map">
     update Budget
     set id = #{record.id,jdbcType=INTEGER},
-      date = #{record.date,jdbcType=DATE},
+      date = #{record.date,jdbcType=TIMESTAMP},
       income_or_expenditure = #{record.incomeOrExpenditure,jdbcType=VARCHAR},
       amount = #{record.amount,jdbcType=DOUBLE},
       quantity = #{record.quantity,jdbcType=INTEGER},
@@ -210,7 +210,7 @@
     update Budget
     <set>
       <if test="date != null">
-        date = #{date,jdbcType=DATE},
+        date = #{date,jdbcType=TIMESTAMP},
       </if>
       <if test="incomeOrExpenditure != null">
         income_or_expenditure = #{incomeOrExpenditure,jdbcType=VARCHAR},
@@ -232,7 +232,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.fengyue.supermarket.po.Budget">
     update Budget
-    set date = #{date,jdbcType=DATE},
+    set date = #{date,jdbcType=TIMESTAMP},
       income_or_expenditure = #{incomeOrExpenditure,jdbcType=VARCHAR},
       amount = #{amount,jdbcType=DOUBLE},
       quantity = #{quantity,jdbcType=INTEGER},

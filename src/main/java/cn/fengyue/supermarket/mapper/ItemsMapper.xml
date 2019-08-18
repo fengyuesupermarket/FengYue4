@@ -8,6 +8,7 @@
     <result column="inventory" jdbcType="INTEGER" property="inventory" />
     <result column="bid" jdbcType="DOUBLE" property="bid" />
     <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, item_class, name, inventory, bid, price
+    id, item_class, name, inventory, bid, price, date
   </sql>
   <select id="selectByExample" parameterType="cn.fengyue.supermarket.po.ItemsExample" resultMap="BaseResultMap">
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="cn.fengyue.supermarket.po.Items">
     insert into Items (id, item_class, name, 
-      inventory, bid, price
-      )
+      inventory, bid, price, 
+      date)
     values (#{id,jdbcType=INTEGER}, #{itemClass,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{inventory,jdbcType=INTEGER}, #{bid,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}
-      )
+      #{inventory,jdbcType=INTEGER}, #{bid,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, 
+      #{date,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.fengyue.supermarket.po.Items">
     insert into Items
@@ -129,6 +130,9 @@
       <if test="price != null">
         price,
       </if>
+      <if test="date != null">
+        date,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -148,6 +152,9 @@
       </if>
       <if test="price != null">
         #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.price != null">
         price = #{record.price,jdbcType=DOUBLE},
       </if>
+      <if test="record.date != null">
+        date = #{record.date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       name = #{record.name,jdbcType=VARCHAR},
       inventory = #{record.inventory,jdbcType=INTEGER},
       bid = #{record.bid,jdbcType=DOUBLE},
-      price = #{record.price,jdbcType=DOUBLE}
+      price = #{record.price,jdbcType=DOUBLE},
+      date = #{record.date,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="price != null">
         price = #{price,jdbcType=DOUBLE},
       </if>
+      <if test="date != null">
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       name = #{name,jdbcType=VARCHAR},
       inventory = #{inventory,jdbcType=INTEGER},
       bid = #{bid,jdbcType=DOUBLE},
-      price = #{price,jdbcType=DOUBLE}
+      price = #{price,jdbcType=DOUBLE},
+      date = #{date,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

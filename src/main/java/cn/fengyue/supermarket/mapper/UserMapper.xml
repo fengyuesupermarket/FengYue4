@@ -3,7 +3,7 @@
 <mapper namespace="cn.fengyue.supermarket.mapper.UserMapper">
   <resultMap id="BaseResultMap" type="cn.fengyue.supermarket.po.User">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <id column="work_id" jdbcType="VARCHAR" property="workId" />
+    <result column="work_id" jdbcType="VARCHAR" property="workId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="permission" jdbcType="INTEGER" property="permission" />
@@ -12,6 +12,7 @@
     <result column="phone_number" jdbcType="INTEGER" property="phoneNumber" />
     <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="pic" jdbcType="VARCHAR" property="pic" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, work_id, name, password, permission, sex, birthday, phone_number, address, email
+    id, work_id, name, password, permission, sex, birthday, phone_number, address, email, 
+    pic
   </sql>
   <select id="selectByExample" parameterType="cn.fengyue.supermarket.po.UserExample" resultMap="BaseResultMap">
     select
@@ -88,17 +90,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="cn.fengyue.supermarket.po.UserKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from User
     where id = #{id,jdbcType=INTEGER}
-      and work_id = #{workId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="cn.fengyue.supermarket.po.UserKey">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from User
     where id = #{id,jdbcType=INTEGER}
-      and work_id = #{workId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="cn.fengyue.supermarket.po.UserExample">
     delete from User
@@ -110,11 +110,11 @@
     insert into User (id, work_id, name, 
       password, permission, sex, 
       birthday, phone_number, address, 
-      email)
+      email, pic)
     values (#{id,jdbcType=INTEGER}, #{workId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{permission,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=DATE}, #{phoneNumber,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR})
+      #{email,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.fengyue.supermarket.po.User">
     insert into User
@@ -149,6 +149,9 @@
       <if test="email != null">
         email,
       </if>
+      <if test="pic != null">
+        pic,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -180,6 +183,9 @@
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null">
+        #{pic,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -222,6 +228,9 @@
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
       </if>
+      <if test="record.pic != null">
+        pic = #{record.pic,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -238,7 +247,8 @@
       birthday = #{record.birthday,jdbcType=DATE},
       phone_number = #{record.phoneNumber,jdbcType=INTEGER},
       address = #{record.address,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR}
+      email = #{record.email,jdbcType=VARCHAR},
+      pic = #{record.pic,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -246,6 +256,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.fengyue.supermarket.po.User">
     update User
     <set>
+      <if test="workId != null">
+        work_id = #{workId,jdbcType=VARCHAR},
+      </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
@@ -270,21 +283,24 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
+      <if test="pic != null">
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
-      and work_id = #{workId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.fengyue.supermarket.po.User">
     update User
-    set name = #{name,jdbcType=VARCHAR},
+    set work_id = #{workId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       permission = #{permission,jdbcType=INTEGER},
       sex = #{sex,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=DATE},
       phone_number = #{phoneNumber,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR}
+      email = #{email,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
-      and work_id = #{workId,jdbcType=VARCHAR}
   </update>
 </mapper>
